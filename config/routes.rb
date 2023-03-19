@@ -13,6 +13,7 @@ devise_for :customers,skip: [:passwords], controllers: {
  scope module: :public do
   root to: "homes#top"
   get "/homes/public/about" => "homes#about", as: "about"
+  get 'customer' => 'customers#show'
   resources :customers, only: [:show, :edit, :update, :unsubscribe, :withdraw] 
   resources :addresses, only: [:index, :edit, :create, :update, :destroy]
   resources :orders, only: [:index, :show, :create, :new]
