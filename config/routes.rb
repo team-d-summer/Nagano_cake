@@ -14,6 +14,7 @@ devise_for :customers,skip: [:passwords], controllers: {
   get "/homes/public/about" => "homes#about", as: "about"
   resources :customers, only: [:show, :edit, :update, :unsubscribe, :withdraw] 
   resources :addresses, only: [:index, :edit, :create, :update, :destroy]
+  resources :orders, only: [:index, :show, :create, :new]
  end
 
 
