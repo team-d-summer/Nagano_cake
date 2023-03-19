@@ -1,6 +1,8 @@
 class Public::CustomersController < ApplicationController
+    before_action :ensure_current_customer
+    #sign_inしているcustomerのみ閲覧・編集可能
     
-    def show
+  def show
     @customer = Customer.find(current_customer.id)
   end 
 
@@ -12,7 +14,7 @@ class Public::CustomersController < ApplicationController
     @customer = Customer.find(current_customer.id)
     if @customer.update(customer_params)
      flash[:notice] = "変更を保存しました。"
-     redirect_to customers_my_page_path(current_customer.id)
+     redirect_to customers_path(current_customer.id)
     else
      render :edit
     end 
@@ -20,7 +22,7 @@ class Public::CustomersController < ApplicationController
   
   def unsubscribe
   end 
-  
+  #退会処理
   def withdrawal
     @customer = Customer.find(current_customer.id)
     @customer.update(is_deleted: true)
@@ -36,6 +38,7 @@ class Public::CustomersController < ApplicationController
     
     def ensure_current_customer
      if !customer_signed_in?
+       #ログイン/未ログインの処理 未ログインならトップへ
       redirect_to root_path
      end 
     end 
