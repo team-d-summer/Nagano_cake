@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
 # 顧客用
 # URL /customers/sign_in ...
 devise_for :customers,skip: [:passwords], controllers: {
@@ -10,8 +9,9 @@ devise_for :customers,skip: [:passwords], controllers: {
 
  scope module: :public do
   root to: "homes#top"
+  resources :customers, only: [:show, :edit,:uodate,:unsubscribe,:withdrawl] 
   resources :addresses, only: [:index, :edit, :create, :update, :destroy]
-
+  
  end
 
 # 管理者用
