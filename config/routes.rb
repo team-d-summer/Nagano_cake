@@ -8,14 +8,18 @@ devise_for :customers,skip: [:passwords], controllers: {
   sessions: 'public/sessions'
 }
 
-scope module: :public do
+
+
+ scope module: :public do
   root to: "homes#top"
-  get "/homes/about" => "homes#about", as: "about"
+  get "/homes/public/about" => "homes#about", as: "about"
   resources :customers, only: [:show, :edit, :update, :unsubscribe, :withdraw] 
   resources :addresses, only: [:index, :edit, :create, :update, :destroy]
+  resources :orders, only: [:index, :show, :create, :new]
   resources :items, only: [:index, :show]
-  
-end
+ end
+
+
 
 # 管理者用
 # URL /admin/sign_in ...
@@ -25,7 +29,10 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 
 namespace :admin do
   root to: "homes#top"
-  end
+  resources :orders, only: [:show, :update]
+  resources :customers, only: [:index, :show, :edit, :update]
+  get 'order_details/update'
+end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
