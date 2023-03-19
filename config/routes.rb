@@ -12,7 +12,7 @@ devise_for :customers,skip: [:passwords], controllers: {
   get "/homes/public/about" => "homes#about", as: "about"
   resources :customers, only: [:show, :edit,:uodate,:unsubscribe,:withdrawl] 
   resources :addresses, only: [:index, :edit, :create, :update, :destroy]
-  
+  resources :orders, only: [:index, :show, :create, :new]
  #end
 
 # 管理者用
