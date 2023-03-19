@@ -7,12 +7,14 @@ devise_for :customers,skip: [:passwords], controllers: {
   sessions: 'public/sessions'
 }
 
+
  scope module: :public do
   root to: "homes#top"
-  resources :customers, only: [:show, :edit,:uodate,:unsubscribe,:withdrawl]
+  get "/homes/public/about" => "homes#about", as: "about"
+  resources :customers, only: [:show, :edit, :update, :unsubscribe, :withdraw] 
   resources :addresses, only: [:index, :edit, :create, :update, :destroy]
-
  end
+
 
 # 管理者用
 # URL /admin/sign_in ...
