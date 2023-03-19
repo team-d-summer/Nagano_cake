@@ -24,11 +24,10 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 
 namespace :admin do
   root to: "homes#top"
-  namespace :admin do
-    resources :orders, only: [:show, :update]
-    
-  end
-  end
+  resources :orders, only: [:show, :update]
+  resources :customers, only: [:index, :show, :edit, :update]
+end
+
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
