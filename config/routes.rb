@@ -33,6 +33,7 @@ namespace :admin do
   resources :customers, only: [:index, :show, :edit, :update]
   get 'order_details/update'
   resources :items, except: [:destroy]
+  resources :genres, only: [:index, :create, :edit, :update]
 end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
