@@ -16,6 +16,6 @@ class Order < ApplicationRecord
   belongs_to :customer
 
   def add_full_address
-    "#{self.post_code} #{self.address} "
+    "#{self.postal_code} #{self.address} "
   end
 end
