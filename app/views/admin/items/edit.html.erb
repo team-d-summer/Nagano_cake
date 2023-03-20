@@ -6,7 +6,7 @@
         <h3 class="col-6"><span>商品編集</span></h3>
         
     
-        <%= form_with model: @item, url: admin_product_path(@item.id), method: :patch, local:true, class: "container text-center pl-9" do |f| %>
+        <%= form_with model: @item, url: admin_item_path(@item.id), method: :patch, local:true, class: "container text-center pl-9" do |f| %>
         <div class="form-group row">
           <label class="col-4 text-right">商品画像</label>
           <%= f.file_field :image, class: "col-4 form-control-file pl-0", accept: "image/*" %>
