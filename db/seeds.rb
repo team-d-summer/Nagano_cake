@@ -9,3 +9,10 @@ Admin.create(
   email: 'admin@admin',
   password: 'summer',
   )
+  
+Genre.create(
+  [{ name: 'ケーキ' },
+  { name: '焼き菓子' },
+  { name: 'プリン' },
+  { name: 'キャンディ' }
+  ])
