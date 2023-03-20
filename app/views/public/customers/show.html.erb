@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row no-gutters">
-    <div class="col-md-9 mx-sm-auto text-center shadow-lg">
+    <div class="col-md-8 mx-sm-auto text-center shadow-lg">
         <h2>登録情報</h2>
         <div class="text-success">
           <%= flash[:notice] %>
@@ -48,10 +48,10 @@
            </tr>
           </table>
           
-          <h2>配送先　</h2>
+          <h4>配送先　</h4>
           <div><%= link_to "一覧を見る",   addresses_path %></div>
           
-          <h2>注文履歴</h2>
+          <h4>注文履歴</h4>
           <div><%= link_to "一覧を見る",  orders_path %></div>
         </div>
     </div>
