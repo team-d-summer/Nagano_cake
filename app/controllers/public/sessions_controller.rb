@@ -10,8 +10,12 @@ class Public::SessionsController < Devise::SessionsController
   def after_sign_out_path_for(resource)
    new_customer_session_path
   end
-
   
+  private
+  
+  def customer_params
+    params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :email, :postal_code, :address, :telphone_number, :is_deleted)
+  end
   protected
 # 退会しているかを判断するメソッド
   def customer_state
