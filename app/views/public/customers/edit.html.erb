@@ -3,7 +3,7 @@
     <div class="col-md-9 mx-sm-auto text-center shadow-lg">
         <h2>会員情報編集</h2>
         
-        <%= form_with model: @customer, url: update_customer_path(current_customer), method: :patch do |f| %>
+        <%= form_with model: @customer, url: customer_update_path(current_customer), method: :patch do |f| %>
         
         <table>
             <tr>
@@ -35,7 +35,7 @@
             <tr>
                 <td>郵便番号(ハイフンなし)</td>
                 <td>
-                    <%= f.text_field :post_code %>
+                    <%= f.text_field :postal_code %>
                 </td>
             </tr>
             
@@ -49,12 +49,12 @@
             <tr>
                 <td>電話番号（ハイフンなし）</td>
                 <td>
-                    <%= f.text_field :phone_number %>
+                    <%= f.text_field :telephone_number %>
                  </td>
             </tr>
             
             <tr>
-              <td><%= f.submit "編集内容を保存" %></td>
+              <td><%= f.submit "編集内容を保存", class: 'btn btn-success' %></td>
               <td><%= link_to "退会する",  unsubscribe_path %></td>
             </tr>
             </table>
