@@ -10,7 +10,7 @@ class Item < ApplicationRecord
   validates :price, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :is_active, inclusion: [true, false]
   
-  def get_image
+  def get_image(width)
  (image.attached?) ? image : 'no_image.jpg'
   end
   
