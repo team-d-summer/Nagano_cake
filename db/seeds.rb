@@ -21,3 +21,11 @@ Item.create(
   { genre_id: 2,name: 'フルーツタルト', introduction:'フルーツの産地にこだわって作った一品です。', price: 800 },
   { genre_id: 1,name: 'いちごのショートケーキ(ホール)', introduction:'test9', price: 2700 }
   ])
+
+Genre.create(
+  [{ name: 'ケーキ' },
+  { name: '焼き菓子' },
+  { name: 'プリン' },
+  { name: 'キャンディ' }
+  ])
+
