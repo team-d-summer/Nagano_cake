@@ -19,4 +19,8 @@ class Customer < ApplicationRecord
   validates :email, presence: true
   validates :encrypted_password, presence: true
   
+  def add_full_name
+    "#{self.last_name} #{self.first_name}"
+  end
+  
 end
