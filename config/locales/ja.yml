@@ -10,8 +10,7 @@ ja:
           now_at_work: "製作中"
           shopping_preparation: "発送準備中"
           shopped: "発送済み"
-      
-    enums:    
+          
       order_detail:
         tyakusyuhuka: "着手不可"
         tyakusyumati: "製作待ち"

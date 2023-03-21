@@ -1,60 +1,70 @@
-<h3>注文情報確認</h3>
-<table>
-    <thead>
-        <tr>
-            <th>商品名</th>
-            <th>単価(税込)</th>
-            <th>数量</th>
-            <th>小計</th>
-         </tr>
-    </thead>
-    <tbody>
-        <% @carts.each do |cart| %>
-        <tr>
-            <td>
-                <%= image_tag cart.item.get_image, size:'50x50'%>
-                <%= cart.item.name %>
-            </td>
-            <td><%= cart.item.add_tax_price %></td>
-            <td><%= cart.amount %></td>
-            <td><%= cart.add_total_payment_all %></td>
-        </tr>
-        <% end %>
-    </tbody>
-</table>
-
-<table>
-    <tr>
-        <th>送料</th>
-        <th><%= @order.shipping_cost.to_s(:delimited) %></th>
-    </tr>
-    <tr>
-        <th>商品合計</th>
-        <th><%= @total %></th>
-    </tr>
-    <tr>
-        <th>請求金額</th>
-        <th><%= @order.shipping_cost + @total %></th>
-    </tr>
-</table>
-<div>
-    <p>支払い方法</p>
-    <p><%= @order.payment_method_i18n %></p>
-</div>
-
-<div>
-    <p>お届け先</p>
-    <p><%= @order.add_full_address %><br/>
-       <%= @order.name %></p>
-</div>
-<div>
-    <%= form_with model: @order, url:orders_path,method: :post do |f|%>
-     <%= f.hidden_field :post_code %>
-     <%= f.hidden_field :address %>
-     <%= f.hidden_field :name %>
-     <%= f.hidden_field :postage %>
-     <%= f.hidden_field :total_payment %>
-     <%= f.hidden_field :payment_method %>
-     <%= f.submit "注文を確定する" %>
-    <% end %>
-</div>
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-10 mx-sm-auto text-center">
+        <h3>注文情報確認</h3>
+            <table border="1" style="border-collapse: collapse" width="100%">
+                <thead>
+                    <tr>
+                        <th>商品名</th>
+                        <th>単価(税込)</th>
+                        <th>数量</th>
+                        <th>小計</th>
+                     </tr>
+                </thead>
+                <tbody>
+                    <% @carts.each do |cart| %>
+                    <tr>
+                        <td>
+                            <%= image_tag cart.item.get_image, size:'50x50'%>
+                            <%= cart.item.name %>
+                        </td>
+                        <td><%= cart.item.add_tax_price %></td>
+                        <td><%= cart.amount %></td>
+                        <td><%= cart.add_total_payment_all %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+    </div>
+       <div class="col-md-10 mx-sm-auto text-center">
+            <table border="1" style="border-collapse: collapse" width="100%">
+                <tr>
+                    <th>送料</th>
+                    <th><%= @order.shipping_cost.to_s(:delimited) %></th>
+                </tr>
+                <tr>
+                    <th>商品合計</th>
+                    <th><%= @total %></th>
+                </tr>
+                <tr>
+                    <th>請求金額</th>
+                    <th><%= @order.shipping_cost + @total %></th>
+                </tr>
+            </table>
+       </div>
+    <diV class="row">
+            <div class="col-md-10">
+                <p>支払い方法</p>
+                <p><%= @order.payment_method_i18n %></p>
+            </div>
+            
+            <div class="col-md-10">
+                <p>お届け先</p>
+                <p><%= @order.add_full_address %><br/>
+                   <%= @order.name %></p>
+            </div>
+            <div>
+                <%= form_with model: @order, url:orders_path,method: :post do |f|%>
+                 <%= f.hidden_field :postal_code %>
+                 <%= f.hidden_field :address %>
+                 <%= f.hidden_field :name %>
+                 <%= f.hidden_field :shipping_cost %>
+                 <%= f.hidden_field :total_payment,:value => @total %>
+                 <%= f.hidden_field :payment_method %>
+                 <%= f.submit "注文を確定する", class: 'btn btn-success' %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+  </div>
+ </div>
