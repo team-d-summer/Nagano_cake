@@ -5,13 +5,19 @@ class Item < ApplicationRecord
   has_many :cart_items, dependent: :destroy
   has_many :order_details
   
+  scope :search_genre, ->(genre) {where(genre_id: genre)}
+  
   validates :name, presence: true, uniqueness: true
   validates :introduction, presence: true
   validates :price, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :is_active, inclusion: [true, false]
   
-  def get_image
- (image.attached?) ? image : 'no_image.jpg'
+  def get_image(width, height)
+    if image.attached?
+      image.variant(resize_to_limit: [width, height]).processed
+    else
+      'no_image.jpg'
+    end
   end
   
   def add_tax_price
