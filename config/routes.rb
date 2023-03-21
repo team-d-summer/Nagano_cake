@@ -14,13 +14,13 @@ devise_for :customers,skip: [:passwords], controllers: {
   get "/homes/public/about" => "homes#about", as: "about"
 
   get 'customer' => 'customers#show'
-  resources :customers, only: [:show, :edit, :update]
   get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
   patch 'customers/withdrawal' => 'customers#withdrawal', as: 'withdrawal'
   resources :items, only: [:index, :show]
   delete "cart_items/destroy_all", to: "cart_items#destroy_all", as: "destroy_all"
   resources :cart_items, only: [:index, :update, :destroy, :create]
-  resources :customers, only: [:show, :edit, :update, :unsubscribe, :withdraw] 
+  resources :customers, only: [:edit] 
+  patch 'customers/:id' => 'customers#update',as:'customer_update'
   resources :addresses, only: [:index, :edit, :create, :update, :destroy]
   resources :orders, only: [:index, :show, :create, :new]
   resources :items, only: [:index, :show]
