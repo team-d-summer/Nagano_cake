@@ -14,7 +14,7 @@ devise_for :customers,skip: [:passwords], controllers: {
   root to: "homes#top"
   get "/homes/public/about" => "homes#about", as: "about"
   get 'customer' => 'customers#show'
-  resources :customers, only: [:show, :edit, :update, :unsubscribe, :withdraw] 
+  resources :customers, only: [:show, :edit, :update, :unsubscribe, :withdraw]
   resources :addresses, only: [:index, :edit, :create, :update, :destroy]
   resources :orders, only: [:index, :show, :create, :new]
   resources :items, only: [:index, :show]
@@ -32,7 +32,7 @@ namespace :admin do
   root to: "homes#top"
   resources :orders, only: [:show, :update]
   resources :customers, only: [:index, :show, :edit, :update]
-  get 'order_details/update'
+  resources :order_details, only: [:update]
   resources :items, except: [:destroy]
 end
 
