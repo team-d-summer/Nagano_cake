@@ -20,7 +20,7 @@
         <% @carts.each do |cart| %>
       <tr>
         <td class="align-middle py-0">
-          <%= image_tag cart.item.get_image(80, 80)%>
+          <%= image_tag cart.item.get_image, size:'80x80' %>
           <%= cart.item.name %>
         </td>
         <td class="align-middle py-1"><%= cart.item.add_tax_price.to_s(:delimited) %></td>

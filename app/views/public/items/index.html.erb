@@ -9,7 +9,7 @@
         <% @items.each do |item|%>
           <div class="card m-2 text-center card-warpper">
             <%= link_to item_path(item.id) do %>
-              <%= image_tag item.get_image(300,200), class:"card-image-top" %>
+              <%= image_tag item.get_image, size:'300x200', class:"card-image-top" %>
             <% unless item.is_active %>
               <div class="not-sale">
                 <p>販売停止</p>
