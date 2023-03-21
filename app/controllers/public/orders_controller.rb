@@ -1,18 +1,24 @@
 class Public::OrdersController < ApplicationController
   def new
     @order = Order.new
-    @deliveries = current_customer.deliveries
-    
+    @addresses = current_customer.addresses
+    @address = Address.new
   end
 
-  def confirm
+  def comfirm
     @carts = current_customer.cart_items
     @total = @carts.inject(0) {|sum, cart| sum + cart.add_total_payment_all}
     @order = current_customer.orders.new(order_params)
-    @order.postage = 800
+    @order.shipping_cost = 800
     select_destination(params[:order][:option])
+    
+    unless @order.save
+      flash.now[:alert] = "注文情報の入力に誤りがあります。もう一度確認してください。"
+      render :new
+    end
+    
   end
-  
+
   def create
     order = current_customer.orders.new(order_params)
     order.status = 0
@@ -29,7 +35,7 @@ class Public::OrdersController < ApplicationController
     current_customer.cart_items.destroy_all
     redirect_to complete_path
   end
-  
+
   def complete
   end
 
@@ -44,10 +50,10 @@ class Public::OrdersController < ApplicationController
   private
     def order_params
       params.require(:order).permit(
-        :post_code,
+        :postal_code,
         :address,
         :name,
-        :postage,
+        :shipping_cost,
         :total_payment,
         :payment_method
         )
@@ -55,16 +61,16 @@ class Public::OrdersController < ApplicationController
     def select_destination(option)
       case option
         when '0'
-          @order.post_code = current_customer.post_code
+          @order.postal_code = current_customer.postal_code
           @order.address = current_customer.address
           @order.name = current_customer.add_full_name
         when '1'
-          del = Delivery.find(params[:order][:address_id])
-          @order.post_code = del.post_code
+          del = Address.find(params[:order][:address_id])
+          @order.postal_code = del.postal_code
           @order.address = del.address
           @order.name = del.name
         when '2'
-          @order.post_code = params[:order][:order_post_code]
+          @order.postal_code = params[:order][:order_postal_code]
           @order.address = params[:order][:order_address]
           @order.name = params[:order][:other_name]
       end
