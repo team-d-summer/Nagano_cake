@@ -20,10 +20,10 @@
         <% @carts.each do |cart| %>
       <tr>
         <td class="align-middle py-0">
-          <%= image_tag cart.item.get_image(80)%>
+          <%= image_tag cart.item.get_image(80, 80)%>
           <%= cart.item.name %>
         </td>
-        <td class="align-middle py-1"><%= cart.item.add_total_payment.to_s(:delimited) %></td>
+        <td class="align-middle py-1"><%= cart.item.add_tax_price.to_s(:delimited) %></td>
         <td class="align-middle py-1">
           <div class="form-group mt-3">
             <%= render 'public/tmp/amount', cart:cart, item:cart.item %>
