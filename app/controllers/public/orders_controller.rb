@@ -18,13 +18,13 @@ class Public::OrdersController < ApplicationController
     end
     
   end
-
+  
   def create
     order = current_customer.orders.new(order_params)
     order.status = 0
     order.save
     current_customer.cart_items.each do |cart_item|
-      OrderItem.create(
+      OrderDetail.create(
         order_id: order.id,
         item_id: cart_item.item_id,
         price: cart_item.item.price,
@@ -53,8 +53,11 @@ class Public::OrdersController < ApplicationController
         :postal_code,
         :address,
         :name,
+        # 送料
         :shipping_cost,
+        # 請求額
         :total_payment,
+        # 支払い方法
         :payment_method
         )
     end

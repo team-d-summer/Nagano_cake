@@ -1,7 +1,7 @@
 class Admin::OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
-    @order_item = @order.order_items
+    @order_details = @order.order_details
     @total = 0
   end
 
@@ -9,8 +9,8 @@ class Admin::OrdersController < ApplicationController
       @order = Order.find(params[:id])
       @order.update(order_params)
    if @order.status == "payment_confirmation"
-      @order_item = @order.order_items
-      @order_item.update_all(making_status:'waiting_production')
+      @order_detail = @order.order_details
+      @order_detail.update_all(making_status:'waiting_production')
    end
       redirect_back(fallback_location: admin_order_path)
   end
@@ -18,6 +18,6 @@ class Admin::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:status, :order_item)
+    params.require(:order).permit(:status, :order_detail)
   end
 end

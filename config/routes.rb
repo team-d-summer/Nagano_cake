@@ -23,6 +23,7 @@ devise_for :customers,skip: [:passwords], controllers: {
   patch 'customers/:id' => 'customers#update',as:'customer_update'
   resources :addresses, only: [:index, :edit, :create, :update, :destroy]
   post "orders/comfirm" => "orders#comfirm", as: "comfirm"
+  get "orders/complete" => "orders#complete",as:"complete"
   resources :orders, only: [:index, :show, :create, :new]
   resources :items, only: [:index, :show]
  end
