@@ -2,7 +2,11 @@ class Admin::OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
     @order_details = @order.order_details
-    @total = 0
+    # @total = 0
+    # @totals = @carts.inject(0) {|sum, cart| sum + cart.add_total_payment_all}
+    # @order_details.each do |order_detail|
+    #   @total+=order_detail.amount*order_detail.price
+    # end
   end
 
   def update
