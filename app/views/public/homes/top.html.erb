@@ -31,7 +31,7 @@
      <tr>
       <% @items.each do |item| %>
        <td>
-        <%= image_tag item.get_image(300, 300), class:"card-image-top" %>
+        <%= image_tag item.get_image, size:'300x200', class:"card-image-top" %>
         <%= link_to item.name, item_path(item.id) %></br>
         ￥<%= item.price %>
        </td>
