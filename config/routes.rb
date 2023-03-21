@@ -38,7 +38,7 @@ namespace :admin do
   root to: "homes#top"
   resources :orders, only: [:show, :update]
   resources :customers, only: [:index, :show, :edit, :update]
-  get 'order_details/update'
+  resources :order_details, only: [:update]
   resources :items, except: [:destroy]
   resources :genres, only: [:index, :create, :edit, :update]
 end
