@@ -12,10 +12,11 @@ ja:
           shopped: "発送済み"
 
       order_detail:
-        tyakusyuhuka: "着手不可"
-        tyakusyumati: "製作待ち"
-        seisakutyuu: "製作中"
-        seisakukanryou: "製作完了完了"
+        making_status:
+          tyakusyuhuka: "着手不可"
+          tyakusyumati: "製作待ち"
+          seisakutyuu: "製作中"
+          seisakukanryou: "製作完了"
 
     time:
       formats:
