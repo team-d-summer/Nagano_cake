@@ -43,6 +43,7 @@ class Public::OrdersController < ApplicationController
 
   def index
     @orders = current_customer.orders
+    @carts = current_customer.cart_items
   end
 
   def show
