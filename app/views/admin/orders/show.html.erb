@@ -11,7 +11,7 @@
             <p>配送先</p><p>〒<%= @order.postal_code%> <%= @order.address%></p>
             <p>支払方法</p><p><%= @order.payment_method_i18n %></p>
            <%= form_with model: @order, url: admin_order_path, method: :patch do |f| %>
-           <%= f.select :status, Order.statuses_i18n.keys.map { |k| [I18n.t("enums.order.status.#{k}"), k] } %>
+           <%= f.select :status, Order.statuses_i18n.invert %>
            <%= f.submit "更新", class: 'btn btn-success' %>
            <% end %>
         </div>
@@ -35,7 +35,7 @@
                  <td><%= (order_detail.price*order_detail.amount).to_s(:delimited) %></td>
                  <td>
                    <%= form_with model: order_detail, url: admin_order_detail_path(order_detail), method: :patch do |f| %>
-                   <%= f.select :product_status, OrderDetail.product_statuses_i18n.invert %>
+                   <%= f.select :making_status, OrderDetail.making_statuses_i18n.invert %>
                    <%= f.submit "更新" ,class: "btn btn-success btn-sm" %>
                  <% end %>
                  </td>
@@ -48,7 +48,7 @@
 <div class='container'>
     <div class='row'>
         <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0">
-        <strong>商品合計</strong>　<%= @total %>円
+        <strong>商品合計</strong>　<%= @order.total_payment-@order.shipping_cost %>円
         <br>
         <strong>送料</strong>　<%= @order.shipping_cost %>円
         <br>
