@@ -12,12 +12,12 @@
         <% @carts.each do |cart| %>
         <tr>
             <td>
-                <%= image_tag cart.item.get_image(50)%>
+                <%= image_tag cart.item.get_image(50, 50)%>
                 <%= cart.item.name %>
             </td>
-            <td><%= to_total_currency(cart.item.add_total_payment) %></td>
+            <td><%= cart.item.add_tax_price %></td>
             <td><%= cart.amount %></td>
-            <td><%= to_total_currency(cart.add_total_payment_all) %></td>
+            <td><%= cart.add_total_payment_all %></td>
         </tr>
         <% end %>
     </tbody>
@@ -26,15 +26,15 @@
 <table>
     <tr>
         <th>送料</th>
-        <th><%= to_total_currency(@order.postage) %></th>
+        <th><%= @order.shipping_cost.to_s(:delimited) %></th>
     </tr>
     <tr>
         <th>商品合計</th>
-        <th><%= to_total_currency(@total) %></th>
+        <th><%= @total %></th>
     </tr>
     <tr>
         <th>請求金額</th>
-        <th><%= to_total_currency(@order.total_payment = @order.postage + @total) %></th>
+        <th><%= @order.shipping_cost + @total %></th>
     </tr>
 </table>
 <div>
@@ -48,7 +48,7 @@
        <%= @order.name %></p>
 </div>
 <div>
-    <%= form_with model: @order do |f|%>
+    <%= form_with model: @order, url:orders_path,method: :post do |f|%>
      <%= f.hidden_field :post_code %>
      <%= f.hidden_field :address %>
      <%= f.hidden_field :name %>
