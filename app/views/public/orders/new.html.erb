@@ -1,5 +1,15 @@
+<% if @order.errors.any? %>
+  <div id="error_explanation">
+    <h3><%= pluralize(@order.errors.count, "error") %> prohibited this obj from being saved:</h3>
+    <ul>
+      <% @order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 <h2>注文情報入力</h2>
-<%= form_with model: @order, url: confirm_path do |f| %>
+<%= form_with model: @order, url: comfirm_path do |f| %>
 <h4>お支払い方法</h4>
 
 <div>
@@ -14,7 +24,7 @@
     <%= f.radio_button :option, 0, {checked: "checked", class: "form-input-check"} %>
     <%= f.label :option_0, "ご自身の住所"%><br/>
     <div>
-    <%= current_customer.add_delivery_address %><br/>
+    <%= current_customer.address %><br/>
     <%= current_customer.add_full_name %>
     </div>
 </div>
@@ -22,8 +32,12 @@
     <%= f.radio_button :option, 1,{class: "from-input-check"} %>
     <%= f.label :option_1, "登録済住所から選択"%><br>
     <div>
-    <%= f.select :address_id, @deliveries.map { |k| [t("#{k.join_address_name}"), k.id] },
-     { include_blank: "選択してください" }, class: "form-control" %>
+      <% if @addresses.nil? %>
+        <p>住所が登録されていません。</p>
+      <% else %>
+        <%= f.select :address_id, @addresses.map { |k| [t("#{k.join_address_name}"), k.id] },
+         { include_blank: "選択してください" }, class: "form-control" %>
+      <% end %>
     </div>
 </div>
 <div>
