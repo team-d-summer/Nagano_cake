@@ -3,9 +3,9 @@ class Public::ItemsController < ApplicationController
 
   def index
     if params[:genre_id].present?
-      @items = Item.serch_genre(params[:genre_id]).page(params[:page]).per(8)
+      @items = Item.search_genre(params[:genre_id]).page(params[:page]).per(8)
       @title = params[:genre_name]
-      @add_items_title = @items.Item.name
+      @add_items_title = @items.first.name if @items.present?
     else
       @items = Item.page(params[:page]).per(8)
     end
