@@ -1,8 +1,8 @@
 module ApplicationHelper
   
-  # ￥priceで表示する
+  # 円priceで表示する
   def to_total_currency(price)
-    number_to_currency(price, unit:'￥', strip_insignificant_zeros: true)
+    "#{price.to_i.to_s(:delimited)}円"
   end
   
   def add_items_title
