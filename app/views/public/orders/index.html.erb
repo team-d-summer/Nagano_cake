@@ -1,41 +1,47 @@
-<h3>注文履歴一覧</h3>
-<table>
-    <thead>
-        <tr>
-            <th>注文日</th>
-            <th>配送先</th>
-            <th>注文商品</th>
-            <th>支払い金額</th>
-            <th>ステータス</th>
-            <th>注文詳細</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% if @orders.present? %>
-        <% @orders.each do |order| %>
-        <tr>
-            <td>
-              <%= order.created_at.strftime('%Y/%m/%d') %>
-            </td>
-            <td>
-              <%= order.post_code %>
-              <%= order.address %>
-              <%= order.name %>
-            </td>
-            <td>
-              <% order.order_items.each do |oi|%>
-                <%= oi.item.name  %>
-              <% end %>
-            </td>
-            <td><%= order.total_payment.to_s(:delimited) %>円</td>
-            <td><%= order.status_i18n %></td>
-            <td><%= link_to '表示する', order_path(order.id) %></td>
-       </tr>
-            <% end %>
-          <% else %>
-        <tr>
-              <td>ご注文は存在しません</td>
-        </tr>
-          <% end %>
-    </tbody>
-</table>
+<div class="container p-3">
+  <div class="row p-3">
+    <div class="mx-auto">
+        <h3 style="background-color: #EEE; text-align: center; ">注文履歴一覧</h3>
+        <table border="1" style="border-collapse: collapse" width="100%">
+            <% if @orders.present? %>
+            <thead>
+                <tr>
+                    <th>注文日</th>
+                    <th>配送先</th>
+                    <th>注文商品</th>
+                    <th>支払い金額</th>
+                    <th>ステータス</th>
+                    <th>注文詳細</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+                <% @orders.each do |order| %>
+                <tr>
+                    <td>
+                      <%= order.created_at.strftime('%Y/%m/%d') %>
+                    </td>
+                    <td>
+                      〒<%= order.postal_code %>
+                      <%= order.address %>
+                      <%= order.name %>
+                    </td>
+                    <td>
+                      <% @carts.each do |cart| %>
+                      <%= cart.item.name %>
+                      <% end %>
+                    </td>
+                    <td><%= order.shipping_cost + order.total_payment %>円</td>
+                    <td><%= order.status_i18n %></td>
+                    <td><%= link_to '表示する', order_path(order.id) %></td>
+               </tr>
+                    <% end %>
+                  
+            </tbody>
+        </table>
+        <% else %>
+                <h2>ご注文は存在しません</h2>
+        <% end %>
+      </div>
+    </div>
+  </div>

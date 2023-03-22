@@ -1,29 +1,34 @@
-<h3>注文情報確認</h3>
-<table>
-    <thead>
-        <tr>
-            <th>商品名</th>
-            <th>単価(税込)</th>
-            <th>数量</th>
-            <th>小計</th>
-         </tr>
-    </thead>
-    <tbody>
-        <% @carts.each do |cart| %>
-        <tr>
-            <td>
-                <%= image_tag cart.item.get_image(50, 50)%>
-                <%= cart.item.name %>
-            </td>
-            <td><%= cart.item.add_tax_price %></td>
-            <td><%= cart.amount %></td>
-            <td><%= cart.add_total_payment_all %></td>
-        </tr>
-        <% end %>
-    </tbody>
-</table>
-
-<table>
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-10 mx-sm-auto text-center">
+        <h3>注文情報確認</h3>
+            <table border="1" style="border-collapse: collapse" width="100%">
+                <thead>
+                    <tr>
+                        <th>商品名</th>
+                        <th>単価(税込)</th>
+                        <th>数量</th>
+                        <th>小計</th>
+                     </tr>
+                </thead>
+                <tbody>
+                    <% @carts.each do |cart| %>
+                    <tr>
+                        <td>
+                            <%= image_tag cart.item.get_image, size:'50x50'%>
+                            <%= cart.item.name %>
+                        </td>
+                        <td><%= cart.item.add_tax_price %></td>
+                        <td><%= cart.amount %></td>
+                        <td><%= cart.add_total_payment_all %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+    </div>
+       <div class="col-md-10 mx-sm-auto text-center">
+            <table border="1" style="border-collapse: collapse" width="100%">
+             
     <tr>
         <th>送料</th>
         <th><%= @order.shipping_cost.to_s(:delimited) %></th>
@@ -58,3 +63,4 @@
      <%= f.submit "注文を確定する" %>
     <% end %>
 </div>
+

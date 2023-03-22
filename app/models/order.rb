@@ -12,7 +12,8 @@ class Order < ApplicationRecord
   validates :name, presence:true
 
 
-  has_many :order_details
+  has_many :order_details,dependent: :destroy
+
   belongs_to :customer
 
   def add_full_address
