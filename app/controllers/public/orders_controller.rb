@@ -16,7 +16,7 @@ class Public::OrdersController < ApplicationController
     #render :comfirm
 
     unless @order.save
-      flash.)now[:alert] = "注文情報の入力に誤りがあります。もう一度確認してください。"
+      flash.now[:alert] = "注文情報の入力に誤りがあります。もう一度確認してください。"
       render :new
     else
         redirect_to complete_path
