@@ -9,32 +9,34 @@ class Public::OrdersController < ApplicationController
     @carts = current_customer.cart_items
     @total = @carts.inject(0) {|sum, cart| sum + cart.add_total_payment_all}
     @order = current_customer.orders.new(order_params)
+    #送料の定義
     @order.shipping_cost = 800
-    @order.total_payment = @total+@order.shipping_cost
+    @order.total_payment = @total
     select_destination(params[:order][:option])
     @order.status = 0
 
-    unless @order.save
+    unless @order.valid?
       flash.now[:alert] = "注文情報の入力に誤りがあります。もう一度確認してください。"
       render :new
-    else
-        redirect_to complete_path
     end
   end
 
   def create
     order = current_customer.orders.new(order_params)
+    order.status = 0
     order.save
     current_customer.cart_items.each do |cart_item|
-      OrderDetail.create(
+      order_detail = OrderDetail.new(
         order_id: order.id,
         item_id: cart_item.item_id,
         price: cart_item.item.price,
         amount: cart_item.amount,
         making_status: 0
       )
+      order_detail.save!
+      cart_item.destroy
     end
-    current_customer.cart_items.destroy_all
+    # current_customer.cart_items.destroy_all
     redirect_to complete_path
   end
 
@@ -48,8 +50,8 @@ class Public::OrdersController < ApplicationController
 
   def show
     @order = current_customer.orders.find(params[:id])
-    @carts = current_customer.cart_items
-    @total = @carts.inject(0) {|sum, cart| sum + cart.add_total_payment_all}
+    @order_details = @order.order_details
+    @total = @order_details.inject(0) {|sum, order_detail| sum + order_detail.add_total_payment_all}
   end
 
   private
