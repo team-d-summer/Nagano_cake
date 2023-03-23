@@ -11,17 +11,15 @@ class Public::OrdersController < ApplicationController
     @order = current_customer.orders.new(order_params)
     #送料の定義
     @order.shipping_cost = 800
-    @order.total_payment = @total+@order.shipping_cost
+    @order.total_payment = @total
     select_destination(params[:order][:option])
     @order.status = 0
-    #render :comfirm
 
     unless @order.valid?
       flash.now[:alert] = "注文情報の入力に誤りがあります。もう一度確認してください。"
       render :new
     end
   end
-
 
   def create
     order = current_customer.orders.new(order_params)
