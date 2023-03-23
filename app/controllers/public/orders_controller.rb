@@ -11,7 +11,7 @@ class Public::OrdersController < ApplicationController
     @order = current_customer.orders.new(order_params)
     #送料の定義
     @order.shipping_cost = 800
-    @order.total_payment = @total
+    @order.total_payment = @total+@order.shipping_cost
     select_destination(params[:order][:option])
     @order.status = 0
 
