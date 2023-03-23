@@ -24,16 +24,14 @@
     </div>
   </div>  
   <div class="col-sm-2 mt-5">
-   <div class="row">
-   
-    <h2>新着商品</h2>
+    <div class="row"><h2>新着商品</h2>
     <table class="table table-borderless">
      <tr>
       <% @items.each do |item| %>
        <td>
-        <%= image_tag item.get_image, size:'300x200', class:"card-image-top" %>
+        <%= link_to(image_tag(item.get_image, size: '300x200', class: 'card-image-top'), item_path(item.id)) %>
         <%= link_to item.name, item_path(item.id) %></br>
-        ￥<%= item.price %>
+        <%= item.price %>円
        </td>
       <% end %>   
      </tr>
@@ -42,9 +40,6 @@
      　<%= link_to "全ての商品", items_path %>
     </p>
     </div>
-   </div>
-  
-    
-
+  </div>
  </div>
 </div>
