@@ -8,9 +8,15 @@ class Public::CartItemsController < ApplicationController
   end
   
   def create
-    # increase_or_create(params[:cart_item][:item_id],params[:cart_item][:amount])
-    cart_item = current_customer.cart_items.new(cart_params)
-    cart_item.save
+    item = Item.find(params[:cart_item][:item_id])
+    quantity = params[:cart_item][:amount].to_i
+    cart_item = current_customer.cart_items.find_by(item_id: item.id)
+    if cart_item
+      cart_item.update(amount: cart_item.amount + quantity)
+    else
+      cart_item = current_customer.cart_items.build(cart_params)
+      cart_item.save
+    end
     redirect_to cart_items_path, notice:' 商品を追加しました'
   end
   
