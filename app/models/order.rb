@@ -19,4 +19,8 @@ class Order < ApplicationRecord
   def add_full_address
     "#{self.postal_code} #{self.address} "
   end
+  
+  def add_full_name
+    "#{customer.last_name} #{customer.first_name} "
+  end
 end
