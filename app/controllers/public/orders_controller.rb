@@ -80,8 +80,8 @@ class Public::OrdersController < ApplicationController
           @order.address = del.address
           @order.name = del.name
         when '2'
-          @order.postal_code = params[:order][:order_postal_code]
-          @order.address = params[:order][:order_address]
+          @order.postal_code = params[:order][:other_postal_code]
+          @order.address = params[:order][:other_address]
           @order.name = params[:order][:other_name]
       end
     end
